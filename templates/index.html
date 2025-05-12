@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Journal</title>
+</head>
+<body>
+  <h2>Welcome, {{ username }}!</h2>
+
+  <form method="post" action="/submit">
+    <textarea name="entry" rows="6" cols="60" placeholder="Write your journal entry here..." required></textarea><br><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  {% if mood %}
+    <p>🧠 Detected Emotion: <strong>{{ mood }}</strong></p>
+  {% endif %}
+</body>
+</html>
