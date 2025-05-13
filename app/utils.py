@@ -1,11 +1,14 @@
-from transformers import pipeline
+import requests
+import os
 
-emotion_pipeline = pipeline(
-    "text-classification",
-    model="j-hartmann/emotion-english-distilroberta-base",
-    return_all_scores=False
-)
+API_URL = "https://api-inference.huggingface.co/models/j-hartmann/emotion-english-distilroberta-base"
+HF_TOKEN = os.getenv("HF_TOKEN")
 
 def detect_emotion(text: str) -> str:
-    result = emotion_pipeline(text)[0]
-    return result["label"]
+    headers = {"Authorization": f"Bearer {HF_TOKEN}"}
+    payload = {"inputs": text}
+    response = requests.post(API_URL, headers=headers, json=payload)
+    result = response.json()
+    if isinstance(result, list) and result[0]:
+        return result[0][0]["label"]
+    return "Unknown"
