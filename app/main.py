@@ -8,6 +8,7 @@ from app.database import init_db, SessionLocal, User, Entry
 from sqlalchemy.orm import Session
 from itsdangerous import URLSafeSerializer
 
+
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 init_db()  # create DB if it doesn’t exist
